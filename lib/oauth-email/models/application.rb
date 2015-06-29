@@ -1,11 +1,22 @@
 module OAuthEmail
   class Application < ActiveRecord::Base
+    has_many :grants
+    has_many :users, through: :grants
+
     validates :name, presence: true, uniqueness: true
-    validates :redirect_uri, presence: true, format: { with: /\Ahttps?:\/\//, message: 'only allows valid URIs'}
+    validates :redirect_uri, presence: true
+    validate :check_format_of_redirect_uri
 
     before_create :generate_client_id, :generate_client_secret
 
     private
+
+      def check_format_of_redirect_uri
+        uri = URI.parse(redirect_uri)
+        errors.add(:redirect_uri, 'must be an absolute URI') unless uri.absolute?
+      rescue
+        errors.add(:redirect_uri, 'must be a URI')
+      end
 
       def generate_client_id(generator = Token::ClientID)
         loop do

@@ -3,6 +3,10 @@ require 'pry'
 require 'active_record'
 require 'sinatra/activerecord'
 
+require 'valid_email/email_validator'
+
+require 'mutations'
+
 ActiveRecord::Base.establish_connection(
   adapter:  'mysql2',
   host:     'localhost',

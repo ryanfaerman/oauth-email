@@ -25,5 +25,17 @@ module OAuthEmail
         super
       end
     end
+
+    class Authorization < Base
+      def self.call(size = 250)
+        super
+      end
+    end
+
+    class Authentication < Base
+      def self.call(size = 50)
+        super
+      end
+    end
   end
 end

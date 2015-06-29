@@ -10,22 +10,24 @@ class CreateInitialModels < ActiveRecord::Migration
     end
 
     create_table :users do |t|
-      t.string :email, null: false, default: '', index: true
-
+      t.string    :email, null: false, default: '', index: true
       t.string    :token
       t.datetime  :token_used_at
-
-      t.integer :sign_in_count, default: 0, null: false
+      t.integer   :sign_in_count, default: 0, null: false
 
       t.timestamps
     end
 
-    create_table :authorizations do |t|
+    create_table :grants do |t|
+      t.integer    :type, null: false, default: 0, index: true
       t.references :user
       t.references :application
       t.string     :token
-    end
+      t.datetime   :expires_at
 
-    add_index :authorizations, [:user_id, :application_id]
+      t.timestamps
+    end
+    add_index :grants, [:user_id, :application_id]
+
   end
 end

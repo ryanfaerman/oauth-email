@@ -1,0 +1,28 @@
+.page-header
+  %h1 Authorize application
+  %p.lead
+    %a{href: '#'} TrepScore
+    would like you to login with your email address
+
+.row
+  .col-md-10.col-md-offset-1
+    - if @user.errors.any?
+      .alert.alert-danger{role: :alert}
+        - if :email.in?(@user.errors.keys)
+          Are you sure that's the right email address?
+    %form#authenticate{role: 'form', method: :post}
+      .form-group{class: (:email.in?(@user.errors.keys) && 'has-error')}
+        %label.text-capitalize{for: :email} Email Address
+        %input.form-control{type: :email, name: :email, value: @user.email}
+        %p.help-block We'll send this address a simple verification message
+      .form-actions.row
+        .col-md-6
+          %button{type: 'submit', class: 'btn btn-primary btn-block'} Verify my Email Address
+        .col-md-6
+          %a.btn.btn-default.btn-block{href: '#'} Deny Access
+
+.footer
+  %p
+    Powered by
+    %a{href: 'http://oauth.email'}OAuth.Email
+

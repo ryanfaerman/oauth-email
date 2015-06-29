@@ -10,10 +10,15 @@ gem "sinatra-activerecord"
 
 gem 'haml'
 
-gem 'oauth2-provider'
+# gem 'oauth2-provider'
 gem 'activerecord'
 gem 'mysql2'
 gem 'activesupport'
+
+gem 'rest-client'
+
+gem 'mutations'
+gem 'valid_email', :require => 'valid_email/email_validator'
 
 group :development do
   gem 'thin'
